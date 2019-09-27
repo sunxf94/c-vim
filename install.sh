@@ -72,13 +72,13 @@ if $FOR_NEOVIM; then
     lnif $CURRENT_DIR/vimrc $CURRENT_DIR/init.vim
 fi
 
-echo "Step3: update/install pluginss using Vim-plug"
+echo "Step3: update/install plugins using Vim-plug"
 system_shell=$SHELL
 export SHELL="/bin/sh"
 if $FOR_VIM; then
-    vim -u $HOME/.vimrc.plugins +pluginsstall! +PlugClean! +qall
+    vim -u $HOME/.vimrc.plugins +PlugInstall! +PlugClean! +qall
 else
-    nvim -u $HOME/.vimrc.plugins +pluginsstall! +PlugClean! +qall
+    nvim -u $HOME/.vimrc.plugins +PlugInstall! +PlugClean! +qall
 fi
 export SHELL=$system_shell
 
@@ -86,14 +86,8 @@ export SHELL=$system_shell
 echo "Step4: compile YouCompleteMe"
 echo "It will take a long time, just be patient!"
 echo "If error,you need to compile it yourself"
-echo "cd $CURRENT_DIR/bundle/YouCompleteMe/ && python install.py --clang-completer"
-cd $CURRENT_DIR/bundle/YouCompleteMe/
+echo "cd $CURRENT_DIR/plugins/YouCompleteMe/ && python3 install.py --go-completer"
+cd $CURRENT_DIR/plugins/YouCompleteMe/
 git submodule update --init --recursive
-if [ `which clang` ]   # check system clang
-then
-    python install.py --clang-completer --system-libclang   # use system clang
-else
-    python install.py --clang-completer
-fi
 
 echo "Install Done!"

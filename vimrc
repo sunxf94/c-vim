@@ -15,7 +15,7 @@
 "       -> FileType Settings  针对文件类型的设置
 "       -> Theme Settings  主题设置
 "
-"       -> 插件配置和具体设置在vimrc.bundles中
+"       -> 插件配置和具体设置在vimrc.plugins中
 " Note: Don't put anything in your .vimrc you don't understand!
 "==========================================
 
@@ -30,7 +30,7 @@ let g:mapleader = ','
 " 开启语法高亮
 syntax on
 
-" install bundles
+" install plugins
 if filereadable(expand("~/.vimrc.plugins"))
   source ~/.vimrc.plugins
 endif
