@@ -519,7 +519,7 @@ nnoremap gv `[v`]
 nnoremap <leader>v V`}
 
 " w!! to sudo & write a file
-cmap w!! w !sudo tee >/dev/null %
+cmap w!! w !sudo tee %
 
 " kj 替换 Esc
 inoremap kj <Esc>
