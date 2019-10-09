@@ -328,8 +328,9 @@ endif
     let g:ycm_register_as_syntastic_checker = 0
     " nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
     " nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
-    nnoremap jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    " nnoremap jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
     nnoremap gd :YcmCompleter GoToDeclaration<CR>
+    nnoremap od <c-o>
 
     " 直接触发自动补全 insert模式下
     " let g:ycm_key_invoke_completion = '<C-Space>'
