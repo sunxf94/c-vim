@@ -1,23 +1,16 @@
-c-vim (fork form k-vim)
+c-vim
 =======================
 
 
-> VERSION: 9.2
+> VERSION: 0.1
 
-> LAST_UPDATE_TIME: 2017-07-29
+> LAST_UPDATE_TIME: 2020-05-31
 
-> 本次更新: 小版本更新, 支持vim8异步语法检查
-
-详细 [更新日志](https://github.com/wklken/k-vim/wiki/UPDATE_LOG)
+> 本次更新: 全面重写，每一行都确认含义，根据自己的需求定制
 
 # 目标
 
 > Just a Better Vim Config. Keep it Simple.
-
-
-**PS**: 服务器端无插件`k-vim`简化版本(curl直接设置vimrc即可)[vim-for-server](https://github.com/wklken/vim-for-server) / vscode-vim配置(尽量一致的键位) [k-vim-vscode](https://github.com/wklken/k-vim-vscode)
-
-**PPS**: 一份tmux配置 [k-tmux](https://github.com/wklken/k-tmux)
 
 ---------------------------------
 
