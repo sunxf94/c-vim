@@ -17,7 +17,10 @@ call plug#begin('~/.vim/plugins')
 " 主题
 Plug 'rakr/vim-one'
 
-"w0rp/ale 语法检测 vim8以上支持
+" vim文档中文版
+Plug 'yianwillis/vimcdoc'
+
+" w0rp/ale 语法检测 vim8以上支持
 if v:version >= 800
     Plug 'w0rp/ale'
 endif
@@ -32,7 +35,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
 
 " 去掉尾行空格
-Plug 'bronson/vim-trailing-whitespace'
+Plug 'ntpeters/vim-better-whitespace'
 
 " 快速赋值语句对齐
 " ,a=       对齐等号表达
@@ -42,21 +45,24 @@ Plug 'junegunn/vim-easy-align'
 " 高效移动 [,, + w/fx/h/j/k/l]
 Plug 'Lokaltog/vim-easymotion'
 
-" 状态栏增强展示
-Plug 'vim-airline/vim-airline'
-
-" 暂时不确定是否需要
-" Plug 'vim-airline/vim-airline-themes'
-
 " 括号显示增强
+" TODO 不生效 可能时one 主题的原因
 Plug 'kien/rainbow_parentheses.vim'
+
+" 状态栏增强展示
+Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
 " 方法列表 <F9>
 Plug 'majutsushi/tagbar'
 
+" vim内 git 操作, 配合 vim-airline 可以在状态栏展示分支
+Plug 'tpope/vim-fugitive'
+
+" 快读选中区块
+Plug 'terryma/vim-expand-region'
+
 " 目录导航
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 
 " 标记和跳转
 " m<Space>  del all
@@ -67,12 +73,12 @@ Plug 'kshenoy/vim-signature'
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " ctrlp.vim的扩展 模糊搜索当前文件中所有函数
-" <leader>fu
+" <Leader>fu
 Plug 'tacahiroy/ctrlp-funky'
 
 if count(g:plugins_groups, 'php')
     " shift + k     查看函数手册
-    " leader + pd   生成注释
+    " <Leader> + pd   生成注释
     Plug 'spf13/PIV'
 endif
 
@@ -87,10 +93,6 @@ endif
 
 " 暂时用不上 先放着吧
 
-" git in vim
-" Plug 'tpope/vim-fugitive'
-" 选中区块
-" Plug 'terryma/vim-expand-region'
 " 多光标选中编辑
 " Plug 'terryma/vim-multiple-cursors'
 " ctrlspace
@@ -110,10 +112,10 @@ if has_key(g:plugs, 'ale')
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-    nmap <silent> <leader>ep <Plug>(ale_previous_wrap)
-    nmap <silent> <leader>en <Plug>(ale_next_wrap)
+    " nmap <silent> <Leader>ep <Plug>(ale_previous_wrap)
+    " nmap <silent> <Leader>en <Plug>(ale_next_wrap)
 
-    nnoremap <silent> <leader>ec :ALEToggle<CR>
+    nnoremap <silent> <Leader>ec :ALEToggle<CR>
 
     " troggle quickfix list
     function! ToggleErrors()
@@ -124,7 +126,7 @@ if has_key(g:plugs, 'ale')
             lopen
         endif
     endfunction
-    nnoremap <leader>s :call ToggleErrors()<cr>
+    nnoremap <Leader>s :call ToggleErrors()<cr>
 
     let g:ale_set_highlights = 1
     highlight clear ALEErrorSign
@@ -154,8 +156,8 @@ endif
     "" 跳转到定义处, 分屏打开
     "let g:ycm_goto_buffer_command = 'same-buffer'
     "let g:ycm_register_as_syntastic_checker = 0
-    "" nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-    "" nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+    "" nnoremap <Leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    "" nnoremap <Leader>gd :YcmCompleter GoToDeclaration<CR>
     "" nnoremap jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
     "nnoremap gd :YcmCompleter GoToDeclaration<CR>
     "nnoremap od <c-o>
@@ -173,21 +175,31 @@ endif
     au FileType php let delimitMate_matchpairs = "(:),[:],{:}"
 " }}}
 
+" vim-expand-region {{{
+    vmap v <Plug>(expand_region_expand)
+    vmap V <Plug>(expand_region_shrink)
+" }}}
+
 " closetag {{{
     let g:closetag_html_style=1
 " }}}
 
 " nerdcommenter {{{
     let g:NERDSpaceDelims=1
+    let g:NERDAltDelims_php = 1
 " }}}
 
-" trailingwhitespace {{{
-    map <leader><space> :FixWhitespace<cr>
+" vim-better-whitespace {{{
+    " 启动空格自动清除
+    let g:better_whitespace_enabled=1
+    let g:strip_whitespace_on_save=1
+    " 关闭清除前确认
+    let g:strip_whitespace_confirm=0
 " }}}
 
-" easyalign {{{
-    vmap <leader>a <Plug>(EasyAlign)
-    nmap <leader>a <Plug>(EasyAlign)
+" vim-easy-align {{{
+    vmap <Leader>a <Plug>(EasyAlign)
+    nmap <Leader>a <Plug>(EasyAlign)
     if !exists('g:easy_align_delimiters')
     let g:easy_align_delimiters = {}
     endif
@@ -197,21 +209,21 @@ endif
     let g:easy_align_ignore_groups = ['Comment', 'String']
 " }}}
 
-" easymotion {{{
+" vim-easymotion {{{
     let g:EasyMotion_smartcase = 1
     "let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-    map <leader><leader>h <Plug>(easymotion-linebackward)
-    map <leader><leader>j <Plug>(easymotion-j)
-    map <leader><leader>k <Plug>(easymotion-k)
-    map <leader><leader>l <Plug>(easymotion-lineforward)
+    map <Leader><Leader>h <Plug>(easymotion-linebackward)
+    map <Leader><Leader>j <Plug>(easymotion-j)
+    map <Leader><Leader>k <Plug>(easymotion-k)
+    map <Leader><Leader>l <Plug>(easymotion-lineforward)
     " 重复上一次操作, 类似repeat插件, 很强大
-    map <leader><leader>. <Plug>(easymotion-repeat)
+    map <Leader><Leader>. <Plug>(easymotion-repeat)
 " }}}
 
 " ctrlp ctrlp.vim{{{
-    let g:ctrlp_map = '<leader>p'
+    let g:ctrlp_map = '<Leader>p'
     let g:ctrlp_cmd = 'CtrlP'
-    map <leader>f :CtrlPMRU<CR>
+    map <Leader>f :CtrlPMRU<CR>
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
         \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
@@ -232,9 +244,9 @@ endif
 
     " ctrlpfunky
     " ctrlp插件1 - 不用ctag进行函数快速跳转
-    nnoremap <leader>fu :CtrlPFunky<Cr>
+    nnoremap <Leader>fu :CtrlPFunky<Cr>
     " narrow the list down with a word under cursor
-    nnoremap <leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+    nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
     let g:ctrlp_funky_syntax_highlight = 1
 
     let g:ctrlp_extensions = ['funky']
@@ -242,32 +254,54 @@ endif
 
 " fugitive {{{
     " :Gdiff  :Gstatus :Gvsplit
-    nnoremap <leader>ge :Gdiff<CR>
+    nnoremap <Leader>ge :Gdiff<CR>
     " not ready to open
-    " <leader>gb maps to :Gblame<CR>
-    " <leader>gs maps to :Gstatus<CR>
-    " <leader>gd maps to :Gdiff<CR>  和现有冲突
-    " <leader>gl maps to :Glog<CR>
-    " <leader>gc maps to :Gcommit<CR>
-    " <leader>gp maps to :Git push<CR>
+    " <Leader>gb maps to :Gblame<CR>
+    " <Leader>gs maps to :Gstatus<CR>
+    " <Leader>gd maps to :Gdiff<CR>  和现有冲突
+    " <Leader>gl maps to :Glog<CR>
+    " <Leader>gc maps to :Gcommit<CR>
+    " <Leader>gp maps to :Git push<CR>
 " }}}
 
-" airline {{{
+" vim-airline {{{
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
     endif
-    let g:airline_left_sep = '▶'
-    let g:airline_left_alt_sep = '❯'
-    let g:airline_right_sep = '◀'
-    let g:airline_right_alt_sep = '❮'
+
+    let g:airline_theme='one'
+    let g:airline_left_sep = '»'
+    let g:airline_right_sep = '«'
+    let g:airline_symbols.crypt = '🔒'
     let g:airline_symbols.linenr = '¶'
+    let g:airline_symbols.maxlinenr = ''
     let g:airline_symbols.branch = '⎇'
-    " let g:airline_theme = 'bubblegum'
-    " 是否打开tabline
+    let g:airline_symbols.paste = '∥'
+    let g:airline_symbols.spell = 'Ꞩ'
+    let g:airline_symbols.notexists = 'Ɇ'
+    let g:airline_symbols.whitespace = 'Ξ'
+
+    " 是否打开tabline 开启branch展示
     " let g:airline#extensions#tabline#enabled = 1
 " }}}
 
-" rainbow_parentheses {{{
+" vim-one {{{
+    " 真实色彩 | 修复one主题 自动补全下的颜色问题
+    if (empty($TMUX))
+        if (has("nvim"))
+            "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+            let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+        endif
+        "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+        "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+        " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+        if (has("termguicolors"))
+            set termguicolors
+        endif
+    endif
+" }}}
+
+" rainbow_parentheses.vim {{{
     " 不加入这行, 防止黑色括号出现, 很难识别
     " \ ['black',       'SeaGreen3'],
     let g:rbpt_colorpairs = [
@@ -297,7 +331,7 @@ endif
 " }}}
 
 " nerdtree nerdtreetabs {{{
-    " map <leader>n :NERDTreeToggle<CR>
+    " map <Leader>n :NERDTreeToggle<CR>
     let NERDTreeHighlightCursorline=1
     let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
     "close vim if the only window left open is a NERDTree
@@ -310,7 +344,7 @@ endif
 
 
     " nerdtreetabs
-    map <leader>n <plug>NERDTreeTabsToggle<CR>
+    map <Leader>n <plug>NERDTreeTabsToggle<CR>
     " 关闭同步
     " let g:nerdtree_tabs_synchronize_view=0
     " let g:nerdtree_tabs_synchronize_focus=0

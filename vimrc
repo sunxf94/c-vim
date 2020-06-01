@@ -1,48 +1,58 @@
 "==========================================
-" Author: sunxuefeng
-" Version: 0.1
+" Author: 孙雪峰
+" Version: 0.2
 " Email: sunxf94@gmail.com
 " ReadMe: README.md
-" Last_modify: 2020.5.27
+" Last_modify: 2020.06.02
 " Sections:
+"   -> 初始化
 "   -> 加载插件
 " 	-> 基础设置
-" 	-> 主题设置
 " 	-> 展示设置
 " 	-> 自定义快捷键设置
-" 	-> 文件类型设置
 " 	-> 自定义函数
-" Note: Don't put anything in your .vimrc you don't understand!
+" Note: 将不懂的配置踢出vimrc
 "==========================================
+
+"==========================================
+" 初始化 - 部分设置最好放在加载插件之前
+"==========================================
+" :h UserGettingBored
+
+" 修改leader键
+" TODO let g:mapleader & let mapleader 有什么区别
+let g:mapleader = ','
+
+" 打开文件类型检测 允许加载插件 打开自动缩进 详见:h filetype
+filetype plugin indent on
 
 "==========================================
 " 加载插件
 "==========================================
 
-" 修改leader键
-let mapleader = ','
-
 " install plugins
+" expand 扩展{expr}里的通配符和关键字 当前是将 ~ 转换为绝对路径
 if filereadable(expand("~/.vimrc.plugins"))
     source ~/.vimrc.plugins
 endif
-
-" 开始文件类型检测 允许加载插件 (这是两条命令)
-filetype plugin on
 
 "==========================================
 " 基础设置
 "==========================================
 
 " Reload/Edit the vimrc file quickly
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <Leader>ev :vs $MYVIMRC<CR>
+nnoremap <Leader>sv :source $MYVIMRC<CR>
 
 " history 存储容量
 set history=1000
 
 " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
+" TODO ^ 是什么意思
 set viminfo^=%
+" 检查是否有autocmd特性 详情见 :h has
+" 当遇到 BufReadPost 事件时，自动执行命令：满足if条件时，执行 normal! g'"
+" normal! g'" 命令：到前次离开本缓冲区时的光标位置 详见 :h '"
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
@@ -51,8 +61,9 @@ endif
 " vim外的文件修改后自动重新载入
 set autoread
 
-" 取消备份
+" 取消备份 详见 :h backup
 set nobackup
+set nowritebackup
 
 " 关闭vi兼容
 set nocompatible
@@ -64,39 +75,65 @@ set noswapfile
 set mouse-=a
 
 " 退出vim后，内容显示在终端
+" TODO 不太理解为什么可以生效
 set t_ti= t_te=
 
 " 设置退格键未正常模式
 set backspace=2
 
-" 自动缩进
-set autoindent
-
-" 设置tab键宽度
+" 设置tab表示的空格数
 set tabstop=4
+
+" 表现为tab 实际是空格 一次退格可以删除和添加4个空格
+set softtabstop=4
+
+" tab时化零为整
+set shiftround
+
+" 设置自动缩进
+set smartindent
 
 " 将tab自动转化为空格(需要tab时，使用 ctrl+V+tab)
 set expandtab
 
-"==========================================
-" 主题设置
-"==========================================
+" 设置自动缩进的时候使用的空格数
+set shiftwidth=4
 
-set t_Co=256
-set background=dark
+" 新文件编码设置成 UTF-8
+set encoding=utf-8
 
-colorscheme one
+" 自动判断编码时，依次尝试一下编码
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+
+" 设置文件格式
+set ffs=unix,mac,dos
+
+" 新文件自动添加文件头
+autocmd BufNewFile *.sh, *.php exec ":call AutoSetFileHead()"
 
 "==========================================
 " 展示设置
 "==========================================
 
+" 主题 需要搭配 Plug: one
+colorscheme one
+
+" one 要求: background必须在colorscheme后面
+set t_Co=256
+set background=dark
+
+" 状态行设置
+" TODO 不设置暂时也没有影响，先注释
+" set laststatus=2
+
 " 代码折叠
+" 设置 foldlevel = 99 保证超过99以上的代码才会被折叠 详见 :h set 搜索foldlevel
 set foldenable
 set foldmethod=manual
 set foldlevel=99
 "" 折叠快捷键
-" map <leader>zz :call ToggleFold()<CR>
+" 暂时不需要折叠 先注释
+" map <Leader>zz :call ToggleFold()<CR>
 " fun! ToggleFold()
     " if g:FoldMethod == 0
         " exe "normal! zM"
@@ -115,14 +152,19 @@ syntax on
 set number
 
 " 相对行号
+" 熟悉下autocmd使用方式就理解下面的两个自动命令了
 set relativenumber number
 autocmd InsertEnter * :set norelativenumber number
 autocmd InsertLeave * :set relativenumber number
 
-" 换行
+" 默认换行
 set wrap
 
+" 高亮搜索结果
 set hlsearch
+
+" 搜索时 实时匹配
+set incsearch
 
 " 光标的上方或下方至少会保留的显示的行数
 set scrolloff=7
@@ -131,12 +173,13 @@ set scrolloff=7
 set cursorcolumn
 set cursorline
 
-" 高亮搜索的文本
-set hlsearch
 " 搜索时忽略大小写
-set ignorecase
 " 有一个及以上大写字母时恢复大小写敏感
+set ignorecase
 set smartcase
+
+" 状态行显示正在输入的命令
+set showcmd
 
 " 不展示援助乌干达儿童的提示
 set shortmess=atI
@@ -148,12 +191,12 @@ set shortmess=atI
 " 快速进入命令行
 nnoremap ; :
 
-" <C+n> 自动补全快捷键
-" inoremap <C+j> <C+n>
-" inoremap <C+k> <C+p>
-
 " 取消搜索高亮
-nnoremap <slient><leader>/ :noh<CR>
+nnoremap <slient><Leader>/ :noh<CR>
+
+" v模式调整缩进后，还是选中状态 详见 :h gv
+vnoremap < <gv
+vnoremap > >gv
 
 " 关闭方向键
 map <Left> <Nop>
@@ -180,7 +223,7 @@ map <C-l> <C-w>l
 map <space> /\v
 
 " select all
-map <leader>sa ggVG
+map <Leader>sa ggVG
 
 " [w!!] to [!sudo tee %]
 cmap w!! w !sudo tee %
@@ -189,12 +232,22 @@ cmap w!! w !sudo tee %
 noremap <left> :bp<CR>
 noremap <right> :bn<CR>
 
+" 回车即选中当前项
+nnoremap <silent> <CR> *
+
 " kj 替代 ESC
 inoremap kj <Esc>
+
+" <C-n> 弹窗时上下移动的快捷键
+inoremap <expr> <C-j>       pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <C-k>       pumvisible() ? "\<C-p>" : "\<Up>"
 
 " 上下快速翻屏
 nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
+
+" 去掉搜索高亮
+noremap <silent><Leader>/ :nohls<CR>
 
 " 撤销
 nnoremap U <C-r>
@@ -213,22 +266,7 @@ nnoremap <F3> :set list! list?<CR>
 nnoremap <F4> :set wrap! wrap?<CR>
 
 " F6 语法开关 关闭语法可以加快大文件展示速度
-nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : syn on'<CR>
-
-"==========================================
-" 文件类型设置
-"==========================================
-
-" 新文件编码设置成 UTF-8
-set encoding=utf-8
-
-" 自动判断编码时，依次尝试一下编码
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-
-" 设置文件格式
-set ffs=unix,mac,dos
-
-autocmd BufNewFile *.sh, *.php exec ":call AutoSetFileHead()"
+nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
 "==========================================
 " 自定义函数
@@ -236,12 +274,13 @@ autocmd BufNewFile *.sh, *.php exec ":call AutoSetFileHead()"
 
 " 设置可以高亮的关键字
 if has('autocmd')
-    if v:version > 701 
+    if v:version > 701
         autocmd Syntax * call matchadd('TODO', '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
         autocmd Syntax * cal matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
     endif
 endif
 
+" 行号与相对行号切换
 function HideLineNum()
     if (&relativenumber)
         set norelativenumber nonumber
@@ -250,6 +289,7 @@ function HideLineNum()
     endif
 endfunc
 
+" 新文件 根据文件类型自动添加文件头
 function AutoSetFileHead()
     if &filetype == 'sh'
         call seline(1, "\#!/bin/bash")
