@@ -1,6 +1,7 @@
 c-vim
 =======================
 
+> fork from [wklken](https://github.com/wklken/k-vim)
 
 > VERSION: 0.1
 
@@ -11,8 +12,6 @@ c-vim
 # 目标
 
 > Just a Better Vim Config. Keep it Simple.
-
----------------------------------
 
 ---------------------------------
 
@@ -34,7 +33,7 @@ molokai主题
 ### 1. clone 到本地
 
 ```
-git clone https://github.com/wklken/k-vim.git
+git clone https://github.com/sunxf94/c-vim.git
 ```
 
 
@@ -46,19 +45,12 @@ git clone https://github.com/wklken/k-vim.git
 ```
 # ubuntu
 sudo apt-get install ctags
-sudo apt-get install build-essential cmake python-dev  #编译YCM自动补全插件依赖
-sudo apt-get install silversearcher-ag
 
 # centos
-sudo yum install python-devel.x86_64
-sudo yum groupinstall 'Development Tools'
-sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-sudo yum install the_silver_searcher
-sudo yum install cmake
+sudo yum install ctags
 
 # mac
 brew install ctags
-brew install the_silver_searcher
 ```
 
 ##### 2.2 使用Python
@@ -95,7 +87,7 @@ npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config
 # 会进入安装插件的列表，一安装是从github clone的，完全取决于网速, 之后会自动编译 YCM, 编译失败的话需要手动编译, 有问题见YCM文档
 # 如果发现有插件安装失败 可以进入vim, 执行`:PlugInstall'
 
-cd k-vim/
+cd c-vim/
 sh -x install.sh
 ```
 
@@ -113,9 +105,6 @@ cd ~ && rm -rf .vim .vimrc .vimrc.bundles && cd -
 
 # 常见问题
 
-详见 [wiki](https://github.com/wklken/k-vim/wiki) 以及  [issues](https://github.com/wklken/k-vim/issues)
-
-
 ------------------------
 ------------------------
 
@@ -127,7 +116,7 @@ cd ~ && rm -rf .vim .vimrc .vimrc.bundles && cd -
 
 ```
 " more options: ['json', 'nginx', 'golang', 'ruby', 'less', 'json', ]
-let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta']
+let g:bundle_groups=['php', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta']
 ```
 
 选定集合后, 使用插件管理工具进行安装/更新
@@ -274,28 +263,6 @@ ctrl+n    相对/绝对行号切换
 ------------------------
 ------------------------
 
-### UPDATE_LOG
-
-version 9.2
-
-```
-插件部分:
-1. 增加 w0rp/ale 异步语法检查插件, 用户vim版本为8.0时自动启用. 非8时, 启用默认scrooloose/syntastic, 两套插件快捷键一致
-2. 切换使用flake8作为python风格检查(pip install pep8)
-3. 启用yapf作为python代码格式化(pip install yapf)
-4. 启用eslint作为javascript代码检查
-5. YCM 设置回车选中不再弹补全框
-
-细节:
-1. 新增快捷键 gv 选中并高亮最后一次插入的内容
-```
-
-### Contributors
-
-thx a lot. 可以给我提pull request:)
-
-查看详情 [git-contributors](https://github.com/wklken/k-vim/graphs/contributors)
-
 ### Inspire
 
 1. vimrc文件布局`vimrc+vimrc.bundles`配置方式参考 [maximum-awesome](https://github.com/square/maximum-awesome)
@@ -308,28 +275,8 @@ thx a lot. 可以给我提pull request:)
 
 4. 插件挑选 [VimAwesome](http://vimawesome.com/)
 
-### Resources
-
-[链接](http://www.wklken.me/posts/2014/10/03/vim-resources.html)
-
-### Donation
-
-如果你认为对你有所帮助, You can Buy me a coffee:)
-
-
-![donation](https://raw.githubusercontent.com/wklken/gallery/master/donation/donation_w.jpg)
-
 ------------------------
 ------------------------
 
 The End!
-
-wklken (凌岳/pythoner/vim党预备党员)
-
-Github: https://github.com/wklken
-
-Blog: [http://www.wklken.me](http://www.wklken.me)
-
-2013-06-11 于深圳
-
 
