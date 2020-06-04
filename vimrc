@@ -17,7 +17,6 @@
 "==========================================
 " 初始化 - 部分设置最好放在加载插件之前
 "==========================================
-" :h UserGettingBored
 
 " 修改leader键
 " TODO let g:mapleader & let mapleader 有什么区别
@@ -157,6 +156,9 @@ set relativenumber number
 autocmd InsertEnter * :set norelativenumber number
 autocmd InsertLeave * :set relativenumber number
 
+" TODO 连续按一个键42次会触发，还没想好怎么玩
+" au UserGettingBored * exe ""
+
 " 默认换行
 set wrap
 
@@ -226,7 +228,9 @@ map <space> /\v
 map <Leader>sa ggVG
 
 " [w!!] to [!sudo tee %]
-cmap w!! w !sudo tee %
+cnoremap w!! w !sudo tee %
+
+cnoremap hh rightbelow vertical help<Space>
 
 " buffer 切换
 noremap <left> :bp<CR>
@@ -239,6 +243,7 @@ nnoremap <silent> <CR> *
 inoremap kj <Esc>
 
 " <C-n> 弹窗时上下移动的快捷键
+" 使用 YouCompleteMe 的配置 不需要这个了
 inoremap <expr> <C-j>       pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <C-k>       pumvisible() ? "\<C-p>" : "\<Up>"
 

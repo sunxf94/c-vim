@@ -26,7 +26,7 @@ if v:version >= 800
 endif
 
 " 代码补全 TODO 换一个
-" Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 
 " 自动补全配对标点
 Plug 'Raimondi/delimitMate'
@@ -52,11 +52,11 @@ Plug 'kien/rainbow_parentheses.vim'
 " 状态栏增强展示
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
-" 方法列表 <F9>
-Plug 'majutsushi/tagbar'
-
 " vim内 git 操作, 配合 vim-airline 可以在状态栏展示分支
 Plug 'tpope/vim-fugitive'
+
+" 方法列表 <F9>
+Plug 'majutsushi/tagbar'
 
 " 快读选中区块
 Plug 'terryma/vim-expand-region'
@@ -70,11 +70,8 @@ Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 " m.        add follow previous mark
 Plug 'kshenoy/vim-signature'
 
-" 文件搜索
-Plug 'ctrlpvim/ctrlp.vim'
-" ctrlp.vim的扩展 模糊搜索当前文件中所有函数
-" <Leader>fu
-Plug 'tacahiroy/ctrlp-funky'
+" 文件搜索 funky 是ctrlp.vim的扩展 模糊搜索当前文件中所有函数
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 
 if count(g:plugins_groups, 'php')
     " shift + k     查看函数手册
@@ -135,41 +132,43 @@ endif
 
 " }}}
 
-"" YouCompleteMe {{{
-    ""youcompleteme  默认tab  s-tab 和自动补全冲突
-    ""let g:ycm_key_list_select_completion=['<c-n>']
-    "let g:ycm_key_list_select_completion = ['<c-j>']
-    ""let g:ycm_key_list_previous_completion=['<c-p>']
-    "let g:ycm_key_list_previous_completion = ['<c-k>']
-    "let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
-    "let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
-    "" let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
-    "let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
-    "let g:ycm_collect_identifiers_from_tags_files = 1
-    "" 开启语法关键字补全
-    "let g:ycm_seed_identifiers_with_syntax=1
-    "" 回车作为选中
-    "let g:ycm_key_list_stop_completion = ['<CR>']
+" YouCompleteMe {{{
+    "youcompleteme  默认tab  s-tab 和自动补全冲突
+    let g:ycm_key_list_select_completion = ['<c-j>']
+    let g:ycm_key_list_previous_completion = ['<c-k>']
+    let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
+    let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
+    let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
+    " 启用tags
+    let g:ycm_collect_identifiers_from_tags_files = 1
+    " 开启语法关键字补全
+    let g:ycm_seed_identifiers_with_syntax=1
+    " 回车作为选中
+    let g:ycm_key_list_stop_completion = ['<CR>']
 
-    "let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
+    " 跳转到定义处, 当前buffer打开
+    let g:ycm_goto_buffer_command = 'same-buffer'
+    nnoremap gd :YcmCompleter GoToDeclaration<CR>
+    nnoremap go <c-o>
 
-    "" 跳转到定义处, 分屏打开
-    "let g:ycm_goto_buffer_command = 'same-buffer'
-    "let g:ycm_register_as_syntastic_checker = 0
-    "" nnoremap <Leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-    "" nnoremap <Leader>gd :YcmCompleter GoToDeclaration<CR>
-    "" nnoremap jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-    "nnoremap gd :YcmCompleter GoToDeclaration<CR>
-    "nnoremap od <c-o>
+    " 直接触发自动补全 insert模式下
+    " let g:ycm_key_invoke_completion = '<C-Space>'
+    " 黑名单,不启用
+    let g:ycm_filetype_blacklist = {
+        \ 'tagbar' : 1,
+        \ 'gitcommit' : 1,
+        \}
 
-    "" 直接触发自动补全 insert模式下
-    "" let g:ycm_key_invoke_completion = '<C-Space>'
-    "" 黑名单,不启用
-    "let g:ycm_filetype_blacklist = {
-        "\ 'tagbar' : 1,
-        "\ 'gitcommit' : 1,
-        "\}
-"" }
+    " php lsp 配置
+    let s:lsp = '/home/sunxf/git/c-vim/plugins/lsp-examples'
+    let g:ycm_language_server = [
+        \   {
+        \       'name': 'php',
+        \       'cmdline': [ 'php', expand( s:lsp . '/php/vendor/bin/php-language-server.php' ) ],
+        \       'filetypes': [ 'php' ],
+        \   }
+        \ ]
+" }}}
 
 " delimitMate {{{
     au FileType php let delimitMate_matchpairs = "(:),[:],{:}"
@@ -220,7 +219,9 @@ endif
     map <Leader><Leader>. <Plug>(easymotion-repeat)
 " }}}
 
-" ctrlp ctrlp.vim{{{
+" ctrlp ctrlp.vim ctrlp-funky {{{
+
+    " ctrlp.vim
     let g:ctrlp_map = '<Leader>p'
     let g:ctrlp_cmd = 'CtrlP'
     map <Leader>f :CtrlPMRU<CR>
@@ -228,35 +229,29 @@ endif
         \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
         \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
         \ }
-    let g:ctrlp_working_path_mode=0
+    let g:ctrlp_working_path_mode='r'
     let g:ctrlp_match_window_bottom=1
-    let g:ctrlp_max_height=15
     let g:ctrlp_match_window_reversed=0
-    let g:ctrlp_mruf_max=500
+    let g:ctrlp_max_height=15
+    let g:ctrlp_mruf_max=100
     let g:ctrlp_follow_symlinks=1
-    " 如果安装了ag, 使用ag
-    " if executable('ag')
-    " " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    " " ag is fast enough that CtrlP doesn't need to cache
-    " let g:ctrlp_use_caching = 0
-    " endif
 
     " ctrlpfunky
     " ctrlp插件1 - 不用ctag进行函数快速跳转
-    nnoremap <Leader>fu :CtrlPFunky<Cr>
+    " 当前页面搜索function
+    nnoremap <Leader>e :CtrlPFunky<Cr>
     " narrow the list down with a word under cursor
-    nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+    nnoremap <Leader>E :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
     let g:ctrlp_funky_syntax_highlight = 1
 
     let g:ctrlp_extensions = ['funky']
 " }}}
 
-" fugitive {{{
-    " :Gdiff  :Gstatus :Gvsplit
-    nnoremap <Leader>ge :Gdiff<CR>
+" vim-fugitive {{{
+    "git diff/git blame 在vim内使用比较方便 其他的还是习惯在命令行操作
+    nnoremap <Leader>gf :Gdiff<CR>
+    nnoremap <Leader>gb :Gblame<CR>
     " not ready to open
-    " <Leader>gb maps to :Gblame<CR>
     " <Leader>gs maps to :Gstatus<CR>
     " <Leader>gd maps to :Gdiff<CR>  和现有冲突
     " <Leader>gl maps to :Glog<CR>
@@ -269,20 +264,22 @@ endif
         let g:airline_symbols = {}
     endif
 
-    let g:airline_theme='one'
-    let g:airline_left_sep = '»'
-    let g:airline_right_sep = '«'
+    let g:airline_theme='onedark'
+    let g:airline_left_sep = '▶'
+    let g:airline_right_sep = '◀'
     let g:airline_symbols.crypt = '🔒'
     let g:airline_symbols.linenr = '¶'
-    let g:airline_symbols.maxlinenr = ''
+    let g:airline_symbols.maxlinenr = '㏑'
     let g:airline_symbols.branch = '⎇'
     let g:airline_symbols.paste = '∥'
     let g:airline_symbols.spell = 'Ꞩ'
     let g:airline_symbols.notexists = 'Ɇ'
     let g:airline_symbols.whitespace = 'Ξ'
 
-    " 是否打开tabline 开启branch展示
+    " 是否打开tabline
     " let g:airline#extensions#tabline#enabled = 1
+    " let g:airline#extensions#tabline#left_sep = ' '
+    " let g:airline#extensions#tabline#formatter = 'default'
 " }}}
 
 " vim-one {{{
@@ -331,17 +328,15 @@ endif
 " }}}
 
 " nerdtree nerdtreetabs {{{
-    " map <Leader>n :NERDTreeToggle<CR>
     let NERDTreeHighlightCursorline=1
     let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
     "close vim if the only window left open is a NERDTree
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
+    autocmd Bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
     " s/v 分屏打开文件
     let g:NERDTreeMapOpenSplit = 's'
     let g:NERDTreeMapOpenVSplit = 'v'
     " fix Nerdtree ^G before folder and file names OSX terminal vim
     let g:NERDTreeNodeDelimiter = "\u00a0"
-
 
     " nerdtreetabs
     map <Leader>n <plug>NERDTreeTabsToggle<CR>
@@ -363,21 +358,11 @@ endif
 " }}}
 
 " tagbar {{{
-    nmap <F9> :TagbarToggle<CR>
+    nnoremap <F9> :TagbarToggle<CR>
     let g:tagbar_autofocus = 1
-    " let g:tagbar_autoshowtag = 1
+    let g:tagbar_show_linenumbers = -1
     " let g:tagbar_show_visibility = 1
-    " for ruby
-    let g:tagbar_type_ruby = {
-        \ 'kinds' : [
-            \ 'm:modules',
-            \ 'c:classes',
-            \ 'd:describes',
-            \ 'C:contexts',
-            \ 'f:methods',
-            \ 'F:singleton methods'
-        \ ]
-    \ }
+    " let g:tagbar_autoshowtag = 1
 
     " go语言的tagbar配置
     " 1. install gotags 'go get -u github.com/jstemmer/gotags'
