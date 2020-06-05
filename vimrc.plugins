@@ -25,7 +25,7 @@ if v:version >= 800
     Plug 'w0rp/ale'
 endif
 
-" 代码补全 TODO 换一个
+" 代码补全
 Plug 'Valloric/YouCompleteMe'
 
 " 自动补全配对标点
