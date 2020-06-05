@@ -1,11 +1,11 @@
 c-vim
 =======================
 
-> fork from [wklken](https://github.com/wklken/k-vim)
+> refer [wklken](https://github.com/wklken/k-vim)
 
-> VERSION: 0.1
+> VERSION: 1.0
 
-> LAST_UPDATE_TIME: 2020-05-31
+> LAST_UPDATE_TIME: 2020-06-05
 
 > 本次更新: 全面重写，每一行都确认含义，根据自己的需求定制
 

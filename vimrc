@@ -1,9 +1,7 @@
 "==========================================
 " Author: 孙雪峰
-" Version: 0.2
 " Email: sunxf94@gmail.com
 " ReadMe: README.md
-" Last_modify: 2020.06.02
 " Sections:
 "   -> 初始化
 "   -> 加载插件
@@ -12,6 +10,7 @@
 " 	-> 自定义快捷键设置
 " 	-> 自定义函数
 " Note: 将不懂的配置踢出vimrc
+" Note: 也可以:h [option] 学习一下
 "==========================================
 
 "==========================================
@@ -19,7 +18,6 @@
 "==========================================
 
 " 修改leader键
-" TODO let g:mapleader & let mapleader 有什么区别
 let g:mapleader = ','
 
 " 打开文件类型检测 允许加载插件 打开自动缩进 详见:h filetype
@@ -47,7 +45,6 @@ nnoremap <Leader>sv :source $MYVIMRC<CR>
 set history=1000
 
 " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
-" TODO ^ 是什么意思
 set viminfo^=%
 " 检查是否有autocmd特性 详情见 :h has
 " 当遇到 BufReadPost 事件时，自动执行命令：满足if条件时，执行 normal! g'"
@@ -55,7 +52,6 @@ set viminfo^=%
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-
 
 " vim外的文件修改后自动重新载入
 set autoread
@@ -74,7 +70,6 @@ set noswapfile
 set mouse-=a
 
 " 退出vim后，内容显示在终端
-" TODO 不太理解为什么可以生效
 set t_ti= t_te=
 
 " 设置退格键未正常模式
@@ -122,14 +117,12 @@ set t_Co=256
 set background=dark
 
 " 状态行设置
-" TODO 不设置暂时也没有影响，先注释
-" set laststatus=2
+set laststatus=2
 
-" 代码折叠
 " 设置 foldlevel = 99 保证超过99以上的代码才会被折叠 详见 :h set 搜索foldlevel
-set foldenable
-set foldmethod=manual
-set foldlevel=99
+set nofoldenable
+" set foldmethod=manual
+" set foldlevel=99
 "" 折叠快捷键
 " 暂时不需要折叠 先注释
 " map <Leader>zz :call ToggleFold()<CR>
@@ -143,7 +136,6 @@ set foldlevel=99
     " endif
 " endfun
 
-
 " 语法高亮
 syntax on
 
@@ -151,12 +143,11 @@ syntax on
 set number
 
 " 相对行号
-" 熟悉下autocmd使用方式就理解下面的两个自动命令了
 set relativenumber number
 autocmd InsertEnter * :set norelativenumber number
 autocmd InsertLeave * :set relativenumber number
 
-" TODO 连续按一个键42次会触发，还没想好怎么玩
+" TODO 菜单: 连续按一个键42次会触发，还没想好怎么玩
 " au UserGettingBored * exe ""
 
 " 默认换行

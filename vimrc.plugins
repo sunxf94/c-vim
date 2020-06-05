@@ -3,7 +3,7 @@
 " ==========================================
 
 " #################### 包依赖 ####################
-" ctags
+" python3
 
 " #################### 插件管理 ####################
 
@@ -79,7 +79,6 @@ if count(g:plugins_groups, 'php')
     Plug 'spf13/PIV'
 endif
 
-
 if count(g:plugins_groups, 'shell')
     Plug 'Shougo/vimshell.vim'
 endif
@@ -88,8 +87,7 @@ if count(g:plugins_groups, 'html')
     Plug 'mattn/emmet-vim'
 endif
 
-" 暂时用不上 先放着吧
-
+"" 暂时用不上 先放着吧
 " 多光标选中编辑
 " Plug 'terryma/vim-multiple-cursors'
 " ctrlspace

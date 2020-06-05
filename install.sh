@@ -10,8 +10,6 @@ function show_help
 {
     echo "install.sh [option]
     --for-vim       Install configuration files for vim, default option
-    --for-neovim    Install configuration files for neovim
-    --for-all       Install configuration files for vim & neovim
     --help          Show help messages
 For example:
     install.sh --for-vim
@@ -27,9 +25,8 @@ if [ "$1" != "" ]; then
             shift
             ;;
         --for-neovim)
-            FOR_NEOVIM=true
-            FOR_VIM=false
-            shift
+            show_help
+            exit
             ;;
         --for-all)
             FOR_VIM=true
@@ -86,7 +83,7 @@ export SHELL=$system_shell
 echo "Step4: compile YouCompleteMe"
 echo "It will take a long time, just be patient!"
 echo "If error,you need to compile it yourself"
-echo "cd $CURRENT_DIR/plugins/YouCompleteMe/ && python3 install.py --go-completer"
+echo "cd $CURRENT_DIR/plugins/YouCompleteMe/ && python3 install.py"
 cd $CURRENT_DIR/plugins/YouCompleteMe/
 git submodule update --init --recursive
 
