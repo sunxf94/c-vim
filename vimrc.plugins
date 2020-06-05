@@ -233,6 +233,7 @@ endif
     let g:ctrlp_max_height=15
     let g:ctrlp_mruf_max=100
     let g:ctrlp_follow_symlinks=1
+    let g:ctrlp_tabpage_position='c'
 
     " ctrlpfunky
     " ctrlp插件1 - 不用ctag进行函数快速跳转
