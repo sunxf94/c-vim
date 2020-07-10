@@ -116,8 +116,11 @@ colorscheme one
 set t_Co=256
 set background=dark
 
-" 状态行设置
-set laststatus=2
+" 设置状态栏高度
+set cmdheight=2
+
+" 状态行设置 不生效 可能是哪个插件影响了这里
+" set laststatus=2
 
 " 设置 foldlevel = 99 保证超过99以上的代码才会被折叠 详见 :h set 搜索foldlevel
 set nofoldenable
@@ -213,7 +216,7 @@ map <C-h> <C-w>h
 map <C-l> <C-w>l
 
 " 搜索
-map <space> /\v
+map <space> /
 
 " select all
 map <Leader>sa ggVG
@@ -242,9 +245,6 @@ inoremap <expr> <C-k>       pumvisible() ? "\<C-p>" : "\<Up>"
 nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
 
-" 去掉搜索高亮
-noremap <silent><Leader>/ :nohls<CR>
-
 " 撤销
 nnoremap U <C-r>
 
@@ -272,7 +272,7 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 if has('autocmd')
     if v:version > 701
         autocmd Syntax * call matchadd('TODO', '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
-        autocmd Syntax * cal matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+        autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
     endif
 endif
 

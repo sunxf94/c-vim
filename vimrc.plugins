@@ -8,14 +8,11 @@
 " #################### 插件管理 ####################
 
 if !exists('g:plugins_groups')
-    let g:plugins_groups=['php', 'shell', 'html', 'js']
+    let g:plugins_groups=['php', 'shell', 'js']
 endif
 
 " 使用 vim-plug 管理插件
 call plug#begin('~/.vim/plugins')
-
-" 主题
-Plug 'rakr/vim-one'
 
 " vim文档中文版
 Plug 'yianwillis/vimcdoc'
@@ -47,16 +44,20 @@ Plug 'Lokaltog/vim-easymotion'
 
 " 括号显示增强
 " TODO 不生效 可能时one 主题的原因
-Plug 'kien/rainbow_parentheses.vim'
+" Plug 'kien/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
 
 " 状态栏增强展示
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
+" 主题
+Plug 'rakr/vim-one'
+
 " vim内 git 操作, 配合 vim-airline 可以在状态栏展示分支
 Plug 'tpope/vim-fugitive'
 
-" 方法列表 <F9>
-Plug 'majutsushi/tagbar'
+" 方法列表 <F9> ctrlpvim/ctrlp.vim 插件可以满足此功能
+" Plug 'majutsushi/tagbar'
 
 " 快读选中区块
 Plug 'terryma/vim-expand-region'
@@ -80,11 +81,7 @@ if count(g:plugins_groups, 'php')
 endif
 
 if count(g:plugins_groups, 'shell')
-    Plug 'Shougo/vimshell.vim'
-endif
-
-if count(g:plugins_groups, 'html')
-    Plug 'mattn/emmet-vim'
+   Plug 'Shougo/vimshell.vim'
 endif
 
 "" 暂时用不上 先放着吧
@@ -99,6 +96,7 @@ call plug#end()
 
 " ale {
 if has_key(g:plugs, 'ale')
+    let g:ale_fix_on_save = 1
     let g:ale_sign_error = '>>'
     let g:ale_sign_warning = '>'
 
@@ -131,6 +129,7 @@ endif
 " }}}
 
 " YouCompleteMe {{{
+if has_key(g:plugs, 'YouCompleteMe')
     "youcompleteme  默认tab  s-tab 和自动补全冲突
     let g:ycm_key_list_select_completion = ['<c-j>']
     let g:ycm_key_list_previous_completion = ['<c-k>']
@@ -166,6 +165,7 @@ endif
         \       'filetypes': [ 'php' ],
         \   }
         \ ]
+endif
 " }}}
 
 " delimitMate {{{
@@ -238,7 +238,7 @@ endif
     " ctrlpfunky
     " ctrlp插件1 - 不用ctag进行函数快速跳转
     " 当前页面搜索function
-    nnoremap <Leader>e :CtrlPFunky<Cr>
+    nnoremap <Leader>w :CtrlPFunky<Cr>
     " narrow the list down with a word under cursor
     nnoremap <Leader>E :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
     let g:ctrlp_funky_syntax_highlight = 1
@@ -297,33 +297,59 @@ endif
     endif
 " }}}
 
+" rainbow {{{
+    let g:rainbow_active = 1
+    let g:rainbow_conf = {
+	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+	\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+	\	'operators': '_,_',
+	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+	\	'separately': {
+	\		'*': {},
+	\		'tex': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+	\		},
+	\		'lisp': {
+	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+	\		},
+	\		'vim': {
+	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+	\		},
+	\		'html': {
+	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+	\		},
+	\		'css': 0,
+	\	}
+	\}
+" }}}
+
 " rainbow_parentheses.vim {{{
     " 不加入这行, 防止黑色括号出现, 很难识别
     " \ ['black',       'SeaGreen3'],
-    let g:rbpt_colorpairs = [
-        \ ['brown',       'RoyalBlue3'],
-        \ ['Darkblue',    'SeaGreen3'],
-        \ ['darkgray',    'DarkOrchid3'],
-        \ ['darkgreen',   'firebrick3'],
-        \ ['darkcyan',    'RoyalBlue3'],
-        \ ['darkred',     'SeaGreen3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['brown',       'firebrick3'],
-        \ ['gray',        'RoyalBlue3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['Darkblue',    'firebrick3'],
-        \ ['darkgreen',   'RoyalBlue3'],
-        \ ['darkcyan',    'SeaGreen3'],
-        \ ['darkred',     'DarkOrchid3'],
-        \ ['red',         'firebrick3'],
-        \ ]
+"     let g:rbpt_colorpairs = [
+        " \ ['brown',       'RoyalBlue3'],
+        " \ ['Darkblue',    'SeaGreen3'],
+        " \ ['darkgray',    'DarkOrchid3'],
+        " \ ['darkgreen',   'firebrick3'],
+        " \ ['darkcyan',    'RoyalBlue3'],
+        " \ ['darkred',     'SeaGreen3'],
+        " \ ['darkmagenta', 'DarkOrchid3'],
+        " \ ['brown',       'firebrick3'],
+        " \ ['gray',        'RoyalBlue3'],
+        " \ ['darkmagenta', 'DarkOrchid3'],
+        " \ ['Darkblue',    'firebrick3'],
+        " \ ['darkgreen',   'RoyalBlue3'],
+        " \ ['darkcyan',    'SeaGreen3'],
+        " \ ['darkred',     'DarkOrchid3'],
+        " \ ['red',         'firebrick3'],
+        " \ ]
 
-    let g:rbpt_max = 16
-    let g:rbpt_loadcmd_toggle = 0
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
+    " let g:rbpt_max = 16
+    " let g:rbpt_loadcmd_toggle = 0
+    " au VimEnter * RainbowParenthesesToggle
+    " au Syntax * RainbowParenthesesLoadRound
+    " au Syntax * RainbowParenthesesLoadSquare
+    " au Syntax * RainbowParenthesesLoadBraces
 " }}}
 
 " nerdtree nerdtreetabs {{{
