@@ -18,7 +18,7 @@
 "==========================================
 
 " 修改leader键
-let g:mapleader = ','
+let g:mapleader=','
 
 " 打开文件类型检测 允许加载插件 打开自动缩进 详见:h filetype
 filetype plugin indent on
@@ -117,10 +117,10 @@ set t_Co=256
 set background=dark
 
 " 设置状态栏高度
-set cmdheight=2
+set cmdheight=1
 
 " 状态行设置 不生效 可能是哪个插件影响了这里
-" set laststatus=2
+set laststatus=2
 
 " 设置 foldlevel = 99 保证超过99以上的代码才会被折叠 详见 :h set 搜索foldlevel
 set nofoldenable
@@ -188,7 +188,7 @@ set shortmess=atI
 nnoremap ; :
 
 " 取消搜索高亮
-nnoremap <slient><Leader>/ :noh<CR>
+nnoremap <silent><Leader><space> :nohls<CR>
 
 " v模式调整缩进后，还是选中状态 详见 :h gv
 vnoremap < <gv
