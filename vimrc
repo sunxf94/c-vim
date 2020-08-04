@@ -72,7 +72,7 @@ set mouse-=a
 " 退出vim后，内容显示在终端
 set t_ti= t_te=
 
-" 设置退格键未正常模式
+" 设置退格键为正常模式
 set backspace=2
 
 " 设置tab表示的空格数

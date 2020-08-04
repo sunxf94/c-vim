@@ -2,6 +2,9 @@
 " 插件管理和配置项
 " ==========================================
 
+" #################### TODO ####################
+" 注释换行后，新行空格数不对
+" 数组换行后，新行空格数不对
 " #################### 包依赖 ####################
 " python3
 
@@ -23,12 +26,17 @@ if v:version >= 800
 endif
 
 " 代码补全
+" Ctrl + j/k 上下移动
+" gd    跳转到定义处
+" go    返回
 Plug 'Valloric/YouCompleteMe'
 
 " 自动补全配对标点
 Plug 'Raimondi/delimitMate'
 
 " 注释快捷键
+" leader + cc 注释
+" leader + cu 去掉注释
 Plug 'scrooloose/nerdcommenter'
 
 " 去掉尾行空格
@@ -54,15 +62,20 @@ Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 Plug 'rakr/vim-one'
 
 " vim内 git 操作, 配合 vim-airline 可以在状态栏展示分支
+" leader + gb   git blame
+" leader + gf   git diff
 Plug 'tpope/vim-fugitive'
 
 " 方法列表 <F9> ctrlpvim/ctrlp.vim 插件可以满足此功能
 " Plug 'majutsushi/tagbar'
 
 " 快读选中区块
+" v     扩大选区
+" V     缩小选区
 Plug 'terryma/vim-expand-region'
 
 " 目录导航
+" leader + n
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 
 " 标记和跳转
@@ -71,12 +84,14 @@ Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 " m.        add follow previous mark
 Plug 'kshenoy/vim-signature'
 
-" 文件搜索 funky 是ctrlp.vim的扩展 模糊搜索当前文件中所有函数
+" leader + p    模糊搜索全部文件
+" leader + j    模糊搜索最近打开的文件
+" leader + w    模糊搜索当前文件中所有函数
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 
 if count(g:plugins_groups, 'php')
-    " shift + k     查看函数手册
-    " <Leader> + pd   生成注释
+    " K                 查看函数手册
+    " <Leader> + pd     生成注释
     Plug 'spf13/PIV'
 endif
 
@@ -142,9 +157,11 @@ if has_key(g:plugs, 'YouCompleteMe')
     let g:ycm_seed_identifiers_with_syntax= 1
     " 回车作为选中
     let g:ycm_key_list_stop_completion = ['<CR>']
-    " let g:ycm_echo_current_diagnostic = 0
+    let g:ycm_echo_current_diagnostic = 0
+
+        " \ 'php': ['re!\w{2}'],
     let g:ycm_semantic_triggers = {
-        \ 'php': ['re!\w{2}'],
+        \ 'php': ['->', '::'],
         \ }
 
     " 关闭原型预览
