@@ -5,13 +5,13 @@ c-vim
 
 > VERSION: 1.0
 
-> LAST_UPDATE_TIME: 2020-06-05
+> LAST_UPDATE_TIME: 2020-08-13
 
-> 本次更新: 全面重写，每一行都确认含义，根据自己的需求定制
+> 本次更新: 更换php文档插件，使用中文文档
 
 # 目标
 
-> Just a Better Vim Config. Keep it Simple.
+> 保留一份合适的vim配置，在新的环境可以更快的搭建vim环境
 
 ---------------------------------
 
@@ -26,7 +26,6 @@ molokai主题
 ![molokai](https://github.com/wklken/gallery/blob/master/vim/molokai.png?raw=true)
 
 ---------------------------------
----------------------------------
 
 # 安装步骤
 
@@ -40,53 +39,48 @@ git clone https://github.com/sunxf94/c-vim.git
 ### 2. 安装依赖包
 
 ```
-# ubuntu
-sudo apt-get install ctags
-
 # centos
-sudo yum install ctags
+sudo yum install python3
 
 # mac
-brew install ctags
+brew install python3
 ```
 
 ### 3. 安装
 
 ```
 进入目录, 执行安装
-# 注意原先装过的童鞋, 重装时，不要到~/.vim下执行(这是软连接指向k-vim真是目录)，必须到c-vim原生目录执行
-# 会进入安装插件的列表，一安装是从github clone的，完全取决于网速, 之后会自动编译 YCM, 编译失败的话需要手动编译, 有问题见YCM文档
+# 注意原先装过的童鞋, 重装时，不要到~/.vim下执行(这是软连接指向c-vim真是目录)，必须到c-vim原生目录执行
+# 会进入安装插件的列表，安装是从github clone的，完全取决于网速, 之后会自动编译 YCM, 编译失败的话需要手动编译, 有问题见YCM文档
 # 如果发现有插件安装失败 可以进入vim, 执行`:PlugInstall'
 
 cd c-vim/
-sh -x install.sh
+sh install.sh
 ```
 
-------------------------
 ------------------------
 
 # 移除安装
 
 ```
-cd ~ && rm -rf .vim .vimrc .vimrc.plugins && cd -
+cd ~ && rm -rf .vim .vimrc .vimrc.plugins
 ```
 
----------------------------------
 ---------------------------------
 
 # 常见问题
 
 ------------------------
-------------------------
+TODO
 
 # 插件
 
 ### 选择安装插件集合
 
-编辑vimrc.bundles中
+编辑vimrc.bundles
 
 ```
-" more options: ['json', 'nginx', 'golang', 'ruby', 'less', 'json', ]
+" more options: ['json', 'nginx', 'golang', 'ruby', 'less', ]
 let g:bundle_groups=['php', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta']
 ```
 
@@ -132,7 +126,6 @@ shift + k
 ```
 
 ------------------------
-------------------------
 
 
 # 自定义快捷键
@@ -165,8 +158,6 @@ F3 set list/nolist,显示可打印字符开关
 F4 set wrap/nowrap,换行开关
 F6 syntax on/off,语法开关，关闭语法可以加快大文件的展示
 
-F9 tagbar
-
 5. 分屏移动
 
 ctrl + j/k/h/l   进行上下左右窗口跳转,不需要ctrl+w+jkhl
@@ -174,37 +165,24 @@ ctrl + j/k/h/l   进行上下左右窗口跳转,不需要ctrl+w+jkhl
 6. 搜索
 <space> 空格，进入搜索状态
 /       同上
-,/      去除匹配高亮
+,<space>      去除匹配高亮
 
 7. 按键修改
 Y         =y$   复制到行尾
 U         =Ctrl-r
 ,sa       select all,全选
-gv        选中并高亮最后一次插入的内容
-,v        选中段落
 kj        代替<Esc>，不用到角落去按esc了
-
-,q     :q，退出vim
-,w     :w, 保存当前文件
-
-ctrl+n    相对/绝对行号切换
-<enter>   normal模式下回车选中当前项
 
 更多细节优化:
     1. j/k 对于换行展示移动更友好
     2. HL 修改成 ^$, 更方便在同行移动
     3. ; 修改成 : ，一键进入命令行模式，不需要按shift
-    4. 命令行模式 ctrl+a/e 到开始结尾
-    5. <和> 代码缩进后自动再次选中, 方便连续多次缩进, esc退出
-    6. 保存自动去行尾空白，打开自动加行首代码
-    7. 'w!!'强制保存, 即使readonly
-    8. 去掉错误输入提示
-    9. 交换\`和', '能跳转到准确行列位置
-    10. 保存时自动去行尾空白
-    11. 统一所有分屏打开的操作位v/s[nerdtree/ctrlspace] (特殊ctrlp ctrl+v/x)
+    4. <和> 代码缩进后自动再次选中, 方便连续多次缩进, esc退出
+    5. 保存自动去行尾空白，打开自动加行首代码
+    6. 'w!!'强制保存, 即使readonly
+    7. 统一所有分屏打开的操作位v/s[nerdtree/ctrlspace] (特殊ctrlp ctrl+v/x)
 ```
 
-------------------------
 ------------------------
 
 ### Inspire
@@ -220,7 +198,7 @@ ctrl+n    相对/绝对行号切换
 4. 插件挑选 [VimAwesome](http://vimawesome.com/)
 
 ------------------------
-------------------------
 
 The End!
+
 
