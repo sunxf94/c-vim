@@ -22,7 +22,7 @@ Plug 'yianwillis/vimcdoc'
 
 " w0rp/ale 语法检测 vim8以上支持
 if v:version >= 800
-    Plug 'w0rp/ale'
+   Plug 'w0rp/ale'
 endif
 
 " 代码补全
@@ -56,6 +56,7 @@ Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 " 主题
 " Plug 'rakr/vim-one'
 Plug 'morhetz/gruvbox'
+" Plug 'KabbAmine/yowish.vim'
 
 " vim内 git 操作, 配合 vim-airline 可以在状态栏展示分支
 " leader + gb   git blame
@@ -295,7 +296,7 @@ endif
         let g:airline_symbols = {}
     endif
 
-    let g:airline_theme='onedark'
+    " let g:airline_theme='onedark'
     let g:airline_left_sep = '▶'
     let g:airline_right_sep = '◀'
     let g:airline_symbols.crypt = '🔒'

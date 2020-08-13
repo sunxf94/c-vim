@@ -97,7 +97,9 @@ set shiftwidth=4
 set encoding=utf-8
 
 " 自动判断编码时，依次尝试一下编码
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set fileencodings=utf-8,ucs-bom,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+
+set termencoding=utf-8
 
 " 设置文件格式
 set ffs=unix,mac,dos
@@ -112,6 +114,7 @@ autocmd BufNewFile *.sh, *.php exec ":call AutoSetFileHead()"
 " 主题 需要搭配 Plug: one
 " colorscheme one
 colorscheme gruvbox
+" colorscheme yowish
 
 " one 要求: background必须在colorscheme后面
 set t_Co=256
@@ -233,7 +236,7 @@ noremap <left> :bp<CR>
 noremap <right> :bn<CR>
 
 " 回车即选中当前项
-nnoremap <silent> <CR> *
+" nnoremap <silent> <CR> *
 
 " kj 替代 ESC
 inoremap kj <Esc>

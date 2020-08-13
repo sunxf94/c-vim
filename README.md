@@ -112,8 +112,18 @@ let g:bundle_groups=['php', 'javascript', 'markdown', 'html', 'css', 'tmux', 'be
 
 
 ### 插件列表
-
 见 vimrc.plugins 注释
+
+#### alvan/vim-php-manual php文档
+1. 快捷键
+shift + k
+2. 切换为中文文档
+[原文地址](http://luokr.com/p/20)
+1) 下载最新的中午多文件版本的[PHP手册](https://www.php.net/download-docs.php)
+2) 解压下载回来的压缩包，将目标目录重命名为src/，和doc.php文件放在同一级目录下(vim-php-manual/manual/)
+3) 使用brew/yum 安装w3m
+4) 执行php doc.php, 生成一个doc文件夹（将原来的doc文件夹保存或者删除）
+
 
 ------------------------
 ------------------------
