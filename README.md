@@ -109,14 +109,16 @@ let g:bundle_groups=['php', 'javascript', 'markdown', 'html', 'css', 'tmux', 'be
 :PlugStatus      Check the status of plugins  查看插件状态
 ```
 
-
-
 ### 插件列表
 见 vimrc.plugins 注释
 
 #### alvan/vim-php-manual php文档
-快捷键
-> shift + k
+
+1. 快捷键
+
+```
+shift + k
+```
 
 2. 切换为中文文档
 
