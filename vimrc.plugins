@@ -3,8 +3,8 @@
 " ==========================================
 
 " #################### TODO ####################
-" 注释换行后，新行空格数不对
-" 数组换行后，新行空格数不对
+" 注释换行后，新行空格数不对 --去掉PIV插件
+" 数组换行后，新行空格数不对 --去掉PIV插件
 " #################### 包依赖 ####################
 " python3
 
@@ -29,15 +29,10 @@ endif
 " Ctrl + j/k 上下移动
 " gd    跳转到定义处
 " go    返回
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 
 " 自动补全配对标点
 Plug 'Raimondi/delimitMate'
-
-" 注释快捷键
-" leader + cc 注释
-" leader + cu 去掉注释
-Plug 'scrooloose/nerdcommenter'
 
 " 去掉尾行空格
 Plug 'ntpeters/vim-better-whitespace'
@@ -53,26 +48,27 @@ Plug 'Lokaltog/vim-easymotion'
 " 括号显示增强
 " TODO 不生效 可能时one 主题的原因
 " Plug 'kien/rainbow_parentheses.vim'
-Plug 'luochen1990/rainbow'
+" Plug 'luochen1990/rainbow'
 
 " 状态栏增强展示
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
 " 主题
-Plug 'rakr/vim-one'
+" Plug 'rakr/vim-one'
+Plug 'morhetz/gruvbox'
 
 " vim内 git 操作, 配合 vim-airline 可以在状态栏展示分支
 " leader + gb   git blame
 " leader + gf   git diff
 Plug 'tpope/vim-fugitive'
 
-" 方法列表 <F9> ctrlpvim/ctrlp.vim 插件可以满足此功能
-" Plug 'majutsushi/tagbar'
+" " 方法列表 <F9> ctrlpvim/ctrlp.vim 插件可以满足此功能
+" " Plug 'majutsushi/tagbar'
 
-" 快读选中区块
-" v     扩大选区
-" V     缩小选区
-Plug 'terryma/vim-expand-region'
+" " 快读选中区块
+" " v     扩大选区
+" " V     缩小选区
+" Plug 'terryma/vim-expand-region'
 
 " 目录导航
 " leader + n
@@ -90,20 +86,25 @@ Plug 'kshenoy/vim-signature'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 
 if count(g:plugins_groups, 'php')
-    " K                 查看函数手册
-    " <Leader> + pd     生成注释
-    Plug 'spf13/PIV'
+    " shift + k         查看函数手册
+    Plug 'alvan/vim-php-manual'
 endif
 
 if count(g:plugins_groups, 'shell')
-   Plug 'Shougo/vimshell.vim'
+    Plug 'Shougo/vimshell.vim'
 endif
 
-"" 暂时用不上 先放着吧
-" 多光标选中编辑
-" Plug 'terryma/vim-multiple-cursors'
-" ctrlspace
-" Plug 'vim-ctrlspace/vim-ctrlspace'
+" "" 暂时用不上 先放着吧
+" " 多光标选中编辑
+" " Plug 'terryma/vim-multiple-cursors'
+" " ctrlspace
+" " Plug 'vim-ctrlspace/vim-ctrlspace'
+
+
+" 注释快捷键
+" leader + cc 注释
+" leader + cu 去掉注释
+Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 

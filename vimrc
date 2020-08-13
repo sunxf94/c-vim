@@ -110,11 +110,13 @@ autocmd BufNewFile *.sh, *.php exec ":call AutoSetFileHead()"
 "==========================================
 
 " 主题 需要搭配 Plug: one
-colorscheme one
+" colorscheme one
+colorscheme gruvbox
 
 " one 要求: background必须在colorscheme后面
 set t_Co=256
 set background=dark
+hi Normal  ctermfg=252 ctermbg=none
 
 " 设置状态栏高度
 set cmdheight=1
