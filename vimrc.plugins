@@ -89,6 +89,7 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 if count(g:plugins_groups, 'php')
     " shift + k         查看函数手册
     Plug 'alvan/vim-php-manual'
+    let g:php_manual_online_search_shortcut = ''
 endif
 
 if count(g:plugins_groups, 'shell')
