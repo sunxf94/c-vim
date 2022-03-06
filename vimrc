@@ -41,6 +41,10 @@ endif
 nnoremap <Leader>ev :vs $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 
+" 设置 vimrc 修改保存后立刻生效，不用在重新打开
+" 建议配置完成后将这个关闭
+" autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
 " history 存储容量
 set history=1000
 
