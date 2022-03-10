@@ -120,11 +120,6 @@ autocmd BufNewFile *.sh, *.php exec ":call AutoSetFileHead()"
 colorscheme gruvbox
 " colorscheme yowish
 
-" one 要求: background必须在colorscheme后面
-set t_Co=256
-set background=dark
-hi Normal  ctermfg=252 ctermbg=none
-
 " 设置状态栏高度
 set cmdheight=1
 

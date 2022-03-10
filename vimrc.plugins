@@ -46,7 +46,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'Lokaltog/vim-easymotion'
 
 " 括号显示增强
-" TODO 不生效 可能时one 主题的原因
+" TODO 不生效 可能是one 主题的原因
 " Plug 'kien/rainbow_parentheses.vim'
 " Plug 'luochen1990/rainbow'
 
@@ -54,17 +54,17 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
 " 主题
-" Plug 'rakr/vim-one'
+Plug 'rakr/vim-one'
 Plug 'morhetz/gruvbox'
-" Plug 'KabbAmine/yowish.vim'
+Plug 'KabbAmine/yowish.vim'
 
 " vim内 git 操作, 配合 vim-airline 可以在状态栏展示分支
 " leader + gb   git blame
 " leader + gf   git diff
 Plug 'tpope/vim-fugitive'
 
-" " 方法列表 <F9> ctrlpvim/ctrlp.vim 插件可以满足此功能
-" " Plug 'majutsushi/tagbar'
+" 方法列表 <F9> ctrlpvim/ctrlp.vim 插件可以满足此功能
+Plug 'majutsushi/tagbar'
 
 " " 快读选中区块
 " " v     扩大选区
@@ -99,8 +99,6 @@ endif
 " go的主要插件
 if count(g:plugins_groups, 'go')
     Plug 'fatih/vim-go'
-    " go的定义跳转
-    " Plug 'dgryski/vim-godef'
 endif
 
 " markdown 插件
@@ -298,7 +296,8 @@ endif
 " vim-fugitive {{{
     "git diff/git blame 在vim内使用比较方便 其他的还是习惯在命令行操作
     nnoremap <Leader>gf :Gdiff<CR>
-    nnoremap <Leader>gb :Gblame<CR>
+    nnoremap <Leader>gb :Git blame<CR>
+    nnoremap <Leader>gl :Git pull<CR>
     " nnoremap <Leader>gs :Gstatus<CR>
     " nnoremap <Leader>gl :Glog<CR>
     " not ready to open
@@ -385,6 +384,9 @@ endif
 " }}}
 
 " vim-one {{{
+
+    " let g:airline_theme='one'
+    set background=dark
     " 真实色彩 | 修复one主题 自动补全下的颜色问题
     if (empty($TMUX))
         if (has("nvim"))
@@ -417,9 +419,7 @@ endif
     " let g:nerdtree_tabs_synchronize_view=0
     " let g:nerdtree_tabs_synchronize_focus=0
     " 是否自动开启nerdtree
-    " thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
-    let g:nerdtree_tabs_open_on_console_startup=0
-    let g:nerdtree_tabs_open_on_gui_startup=0
+    let g:nerdtree_tabs_open_on_console_startup=1
 " }}}
 
 " ctrlspace {{{
@@ -435,7 +435,8 @@ endif
     let g:tagbar_autofocus = 1
     let g:tagbar_show_linenumbers = -1
     " let g:tagbar_show_visibility = 1
-    " let g:tagbar_autoshowtag = 1
+    let g:tagbar_autoshowtag = 1
+    autocmd FileType go,php nested :TagbarOpen
 
     " go语言的tagbar配置
     " 1. install gotags 'go get -u github.com/jstemmer/gotags'
