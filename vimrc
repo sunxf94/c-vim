@@ -116,14 +116,14 @@ autocmd BufNewFile *.sh, *.php exec ":call AutoSetFileHead()"
 "==========================================
 
 " 主题 需要搭配 Plug: one
-" colorscheme one
-colorscheme gruvbox
-" colorscheme yowish
+set background=dark
+colorscheme one
 
 " 设置状态栏高度
 set cmdheight=1
 
-" 状态行设置 不生效 可能是哪个插件影响了这里
+" 状态栏显示
+" 0不显示 1窗口多余一个时显示 2总是显示
 set laststatus=2
 
 " 设置 foldlevel = 99 保证超过99以上的代码才会被折叠 详见 :h set 搜索foldlevel

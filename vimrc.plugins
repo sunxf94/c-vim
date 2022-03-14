@@ -2,11 +2,12 @@
 " 插件管理和配置项
 " ==========================================
 
-" #################### TODO ####################
-" 注释换行后，新行空格数不对 --去掉PIV插件
-" 数组换行后，新行空格数不对 --去掉PIV插件
-" #################### 包依赖 ####################
-" python3
+" #################### TODO ########################
+"
+" #################### 包依赖 ######################
+" vim       8.0+
+" python3   3.6+
+" [powerline](https://github.com/powerline/fonts)
 
 " #################### 插件管理 ####################
 
@@ -15,108 +16,35 @@ if !exists('g:plugins_groups')
 endif
 
 " 使用 vim-plug 管理插件
+" 插件文档 [:hh 插件名称]
 call plug#begin('~/.vim/plugins')
 
-" vim文档中文版
-Plug 'yianwillis/vimcdoc'
+Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs' " 目录导航
+Plug 'yianwillis/vimcdoc'   " vim文档中文版
+Plug 'w0rp/ale' " w0rp/ale 语法检测 vim8以上支持
+Plug 'Valloric/YouCompleteMe'   " 代码补全
+Plug 'Raimondi/delimitMate' " 自动补全配对标点
+Plug 'ntpeters/vim-better-whitespace'   " 去掉尾行空格
+Plug 'junegunn/vim-easy-align'  " 快速赋值语句对齐
+Plug 'Lokaltog/vim-easymotion'  " 高效移动 [<leader><leader> + w/fx/h/j/k/l]
+Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'  " 状态栏增强展示
+Plug 'rakr/vim-one'  " 主题
+" Plug 'morhetz/gruvbox' Plug 'KabbAmine/yowish.vim'
+Plug 'tpope/vim-fugitive'   " vim内 git 操作, 配合 vim-airline 可以在状态栏展示分支
+Plug 'majutsushi/tagbar'    " 方法列表
+Plug 'kshenoy/vim-signature'    " 标记 & 跳转
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'    " 搜索文件 & 方法
+Plug 'luochen1990/rainbow'  " 括号显示增强
+Plug 'scrooloose/nerdcommenter'     " 注释快捷键 [<leader> + cc/cu 注释/反注释]
+Plug 'terryma/vim-expand-region'  " 快读选中区块
 
-" w0rp/ale 语法检测 vim8以上支持
-if v:version >= 800
-   Plug 'w0rp/ale'
-endif
-
-" 代码补全
-" Ctrl + j/k 上下移动
-" gd    跳转到定义处
-" go    返回
-" Plug 'Valloric/YouCompleteMe'
-
-" 自动补全配对标点
-Plug 'Raimondi/delimitMate'
-
-" 去掉尾行空格
-Plug 'ntpeters/vim-better-whitespace'
-
-" 快速赋值语句对齐
-" ,a=       对齐等号表达
-" ,a:       对齐冒号表达式(json/map等)
-Plug 'junegunn/vim-easy-align'
-
-" 高效移动 [,, + w/fx/h/j/k/l]
-Plug 'Lokaltog/vim-easymotion'
-
-" 括号显示增强
-" TODO 不生效 可能是one 主题的原因
-" Plug 'kien/rainbow_parentheses.vim'
-" Plug 'luochen1990/rainbow'
-
-" 状态栏增强展示
-Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-
-" 主题
-Plug 'rakr/vim-one'
-Plug 'morhetz/gruvbox'
-Plug 'KabbAmine/yowish.vim'
-
-" vim内 git 操作, 配合 vim-airline 可以在状态栏展示分支
-" leader + gb   git blame
-" leader + gf   git diff
-Plug 'tpope/vim-fugitive'
-
-" 方法列表 <F9> ctrlpvim/ctrlp.vim 插件可以满足此功能
-Plug 'majutsushi/tagbar'
-
-" " 快读选中区块
-" " v     扩大选区
-" " V     缩小选区
-" Plug 'terryma/vim-expand-region'
-
-" 目录导航
-" leader + n
-Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
-
-" 标记和跳转
-" m<Space>  del all
-" m/        list all
-" m.        add follow previous mark
-Plug 'kshenoy/vim-signature'
-
-" leader + p    模糊搜索全部文件
-" leader + j    模糊搜索最近打开的文件
-" leader + w    模糊搜索当前文件中所有函数
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
-
-if count(g:plugins_groups, 'php')
-    " shift + k         查看函数手册
-    Plug 'alvan/vim-php-manual'
-    let g:php_manual_online_search_shortcut = ''
-endif
-
-if count(g:plugins_groups, 'shell')
+if count(g:plugins_groups, 'go')
+    Plug 'fatih/vim-go'     " go的主要插件
+elseif count(g:plugins_groups, 'php')
+    Plug 'alvan/vim-php-manual'     " php函数手册 [shift + k]
+elseif count(g:plugins_groups, 'shell')
     Plug 'Shougo/vimshell.vim'
 endif
-
-" go的主要插件
-if count(g:plugins_groups, 'go')
-    Plug 'fatih/vim-go'
-endif
-
-" markdown 插件
-" Plug 'iamcco/mathjax-support-for-mkdp'
-" Plug 'iamcco/markdown-preview.vim'
-
-
-" "" 暂时用不上 先放着吧
-" " 多光标选中编辑
-" " Plug 'terryma/vim-multiple-cursors'
-" " ctrlspace
-" " Plug 'vim-ctrlspace/vim-ctrlspace'
-
-
-" 注释快捷键
-" leader + cc 注释
-" leader + cu 去掉注释
-Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 
@@ -154,11 +82,10 @@ if has_key(g:plugs, 'ale')
     highlight clear ALEWarningSign
 endif
 
-" Plug 'fatih/vim-go' {{{
-    nnoremap go :GoDefPop<CR>
-" }}}
-
-" YouCompleteMe {{{
+" YouCompleteMe {
+" Ctrl + j/k 上下移动
+" gd    跳转到定义处
+" go    返回
 if has_key(g:plugs, 'YouCompleteMe')
     "youcompleteme  默认tab  s-tab 和自动补全冲突
     let g:ycm_key_list_select_completion = ['<c-j>']
@@ -201,6 +128,7 @@ if has_key(g:plugs, 'YouCompleteMe')
 			\ "php":1,
 			\ "html":1,
 			\ "js":1,
+            \ "go":1,
 			\ }
 
     " php lsp 配置
@@ -213,47 +141,45 @@ if has_key(g:plugs, 'YouCompleteMe')
         \   }
         \ ]
 endif
-" }}}
+" }
 
-" delimitMate {{{
+" delimitMate {
     au FileType php let delimitMate_matchpairs = "(:),[:],{:}"
-" }}}
+" }
 
-" vim-expand-region {{{
+" vim-expand-region {
     vmap v <Plug>(expand_region_expand)
     vmap V <Plug>(expand_region_shrink)
-" }}}
+" }
 
-" closetag {{{
-    let g:closetag_html_style=1
-" }}}
-
-" nerdcommenter {{{
+" nerdcommenter {
     let g:NERDSpaceDelims=1
     let g:NERDAltDelims_php = 1
-" }}}
+" }
 
-" vim-better-whitespace {{{
+" vim-better-whitespace {
     " 启动空格自动清除
     let g:better_whitespace_enabled=1
     let g:strip_whitespace_on_save=1
     " 关闭清除前确认
     let g:strip_whitespace_confirm=0
-" }}}
+" }
 
-" vim-easy-align {{{
+" vim-easy-align {
+" ,a=       对齐等号表达
+" ,a:       对齐冒号表达式(json/map等)
     vmap <Leader>a <Plug>(EasyAlign)
     nmap <Leader>a <Plug>(EasyAlign)
     if !exists('g:easy_align_delimiters')
-    let g:easy_align_delimiters = {}
+        let g:easy_align_delimiters = {}
     endif
-    let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
+        let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
     " Default:
     " If a delimiter is in a highlight group whose name matches any of the followings, it will be ignored.
     let g:easy_align_ignore_groups = ['Comment', 'String']
-" }}}
+" }
 
-" vim-easymotion {{{
+" vim-easymotion {
     let g:EasyMotion_smartcase = 1
     "let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
     map <Leader><Leader>h <Plug>(easymotion-linebackward)
@@ -262,9 +188,9 @@ endif
     map <Leader><Leader>l <Plug>(easymotion-lineforward)
     " 重复上一次操作, 类似repeat插件, 很强大
     map <Leader><Leader>. <Plug>(easymotion-repeat)
-" }}}
+" }
 
-" ctrlp ctrlp.vim ctrlp-funky {{{
+" ctrlp ctrlp.vim ctrlp-funky {
 
     " ctrlp.vim
     let g:ctrlp_map = '<Leader>p'
@@ -291,9 +217,9 @@ endif
     let g:ctrlp_funky_syntax_highlight = 1
 
     let g:ctrlp_extensions = ['funky']
-" }}}
+" }
 
-" vim-fugitive {{{
+" vim-fugitive {
     "git diff/git blame 在vim内使用比较方便 其他的还是习惯在命令行操作
     nnoremap <Leader>gf :Gdiff<CR>
     nnoremap <Leader>gb :Git blame<CR>
@@ -303,32 +229,39 @@ endif
     " not ready to open
     " <Leader>gc maps to :Gcommit<CR>
     " <Leader>gp maps to :Git push<CR>
-" }}}
+" }
 
-" vim-airline {{{
+" vim-airline {
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
     endif
 
-    " let g:airline_theme='onedark'
-    let g:airline_left_sep = '▶'
-    let g:airline_right_sep = '◀'
+    let g:airline_powerline_fonts=1
+    let g:airline_theme='onedark'
+    let g:airline_left_sep = ''
+    let g:airline_right_sep = ''
     let g:airline_symbols.crypt = '🔒'
-    let g:airline_symbols.linenr = '¶'
-    let g:airline_symbols.maxlinenr = '㏑'
-    let g:airline_symbols.branch = '⎇'
+    let g:airline_symbols.linenr = ''
+    let g:airline_symbols.readonly = ''
+    let g:airline_symbols.maxlinenr = '☰ '
+    let g:airline_symbols.branch = ''
     let g:airline_symbols.paste = '∥'
     let g:airline_symbols.spell = 'Ꞩ'
     let g:airline_symbols.notexists = 'Ɇ'
-    let g:airline_symbols.whitespace = 'Ξ'
+    let g:airline_symbols.dirty='⚡'
+    " let g:airline_symbols.whitespace = 'Ξ'
+    let g:airline#extensions#whitespace#enabled = 0
 
+    "m，d，y，H，M分别表示月，日，年，时，分，也就是相应英文的首字母
+    let g:airline_section_x = '%{strftime("%H:%M")}'
     " 是否打开tabline
+    " let g:airline#extensions#wordcount#formatter = 'readingtime'
     " let g:airline#extensions#tabline#enabled = 1
     " let g:airline#extensions#tabline#left_sep = ' '
     " let g:airline#extensions#tabline#formatter = 'default'
-" }}}
+" }
 
-" rainbow {{{
+" rainbow {
     let g:rainbow_active = 1
     let g:rainbow_conf = {
     \	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
@@ -352,41 +285,11 @@ endif
     \		'css': 0,
     \	}
     \}
-" }}}
+" }
 
-" rainbow_parentheses.vim {{{
-    " 不加入这行, 防止黑色括号出现, 很难识别
-    " \ ['black',       'SeaGreen3'],
-"     let g:rbpt_colorpairs = [
-        " \ ['brown',       'RoyalBlue3'],
-        " \ ['Darkblue',    'SeaGreen3'],
-        " \ ['darkgray',    'DarkOrchid3'],
-        " \ ['darkgreen',   'firebrick3'],
-        " \ ['darkcyan',    'RoyalBlue3'],
-        " \ ['darkred',     'SeaGreen3'],
-        " \ ['darkmagenta', 'DarkOrchid3'],
-        " \ ['brown',       'firebrick3'],
-        " \ ['gray',        'RoyalBlue3'],
-        " \ ['darkmagenta', 'DarkOrchid3'],
-        " \ ['Darkblue',    'firebrick3'],
-        " \ ['darkgreen',   'RoyalBlue3'],
-        " \ ['darkcyan',    'SeaGreen3'],
-        " \ ['darkred',     'DarkOrchid3'],
-        " \ ['red',         'firebrick3'],
-        " \ ]
+" vim-one {
 
-    " let g:rbpt_max = 16
-    " let g:rbpt_loadcmd_toggle = 0
-    " au VimEnter * RainbowParenthesesToggle
-    " au Syntax * RainbowParenthesesLoadRound
-    " au Syntax * RainbowParenthesesLoadSquare
-    " au Syntax * RainbowParenthesesLoadBraces
-" }}}
-
-" vim-one {{{
-
-    " let g:airline_theme='one'
-    set background=dark
+    let g:airline_theme='one'
     " 真实色彩 | 修复one主题 自动补全下的颜色问题
     if (empty($TMUX))
         if (has("nvim"))
@@ -400,9 +303,9 @@ endif
             set termguicolors
         endif
     endif
-" }}}
+" }
 
-" nerdtree nerdtreetabs {{{
+" nerdtree nerdtreetabs {
     let NERDTreeHighlightCursorline=1
     let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
     "close vim if the only window left open is a NERDTree
@@ -420,21 +323,13 @@ endif
     " let g:nerdtree_tabs_synchronize_focus=0
     " 是否自动开启nerdtree
     let g:nerdtree_tabs_open_on_console_startup=1
-" }}}
+" }
 
-" ctrlspace {{{
-    let g:airline_exclude_preview = 1
-    hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
-    hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE
-    hi CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
-    hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=reverse ctermfg=12 ctermbg=8
-" }}}
-
-" tagbar {{{
+" tagbar {
     nnoremap <F9> :TagbarToggle<CR>
-    let g:tagbar_autofocus = 1
+    let g:tagbar_autofocus = 0
     let g:tagbar_show_linenumbers = -1
-    " let g:tagbar_show_visibility = 1
+    let g:tagbar_show_visibility = 0
     let g:tagbar_autoshowtag = 1
     autocmd FileType go,php nested :TagbarOpen
 
@@ -469,15 +364,8 @@ endif
         " \ 'ctagsbin'  : 'gotags',
         " \ 'ctagsargs' : '-sort -silent'
     " \ }
-" }}}
+" }
 
-" piv {{{
-    let g:DisableAutoPHPFolding = 1
-" }}}
-
-" javascript {{{
-    " pangloss/vim-javascript
-    let g:html_indent_inctags = "html,body,head,tbody"
-    let g:html_indent_script1 = "inc"
-    let g:html_indent_style1 = "inc"
-" }}}
+" vim-php-manual {
+    let g:php_manual_online_search_shortcut = ''
+" }
