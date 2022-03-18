@@ -118,7 +118,7 @@ if has_key(g:plugs, 'YouCompleteMe')
     " 跳转到定义处, 当前buffer打开
     let g:ycm_goto_buffer_command = 'same-buffer'
     nnoremap gd :YcmCompleter GoToDeclaration<CR>
-    nnoremap go <c-o>
+    nnoremap go <c-o>zz
 
     " 直接触发自动补全 insert模式下
     " let g:ycm_key_invoke_completion = '<C-Space>'
@@ -241,7 +241,7 @@ endif
     let g:airline_left_sep = ''
     let g:airline_right_sep = ''
     let g:airline_symbols.crypt = '🔒'
-    let g:airline_symbols.linenr = ''
+    let g:airline_symbols.linenr = ' '
     let g:airline_symbols.readonly = ''
     let g:airline_symbols.maxlinenr = '☰ '
     let g:airline_symbols.branch = ''
@@ -249,11 +249,12 @@ endif
     let g:airline_symbols.spell = 'Ꞩ'
     let g:airline_symbols.notexists = 'Ɇ'
     let g:airline_symbols.dirty='⚡'
+    let g:airline_symbols.colnr = ' ㏇:'
     " let g:airline_symbols.whitespace = 'Ξ'
     let g:airline#extensions#whitespace#enabled = 0
 
     "m，d，y，H，M分别表示月，日，年，时，分，也就是相应英文的首字母
-    let g:airline_section_x = '%{strftime("%H:%M")}'
+    let g:airline_section_x = '%{strftime("%Y-%m-%d %H:%M")}'
     " 是否打开tabline
     " let g:airline#extensions#wordcount#formatter = 'readingtime'
     " let g:airline#extensions#tabline#enabled = 1
@@ -289,7 +290,7 @@ endif
 
 " vim-one {
 
-    let g:airline_theme='one'
+    " let g:airline_theme='one'
     " 真实色彩 | 修复one主题 自动补全下的颜色问题
     if (empty($TMUX))
         if (has("nvim"))
@@ -330,8 +331,8 @@ endif
     let g:tagbar_autofocus = 0
     let g:tagbar_show_linenumbers = -1
     let g:tagbar_show_visibility = 0
-    let g:tagbar_autoshowtag = 1
-    autocmd FileType go,php nested :TagbarOpen
+    " let g:tagbar_autoshowtag = 1
+    " autocmd FileType go,php nested :TagbarOpen
 
     " go语言的tagbar配置
     " 1. install gotags 'go get -u github.com/jstemmer/gotags'
@@ -368,4 +369,11 @@ endif
 
 " vim-php-manual {
     let g:php_manual_online_search_shortcut = ''
+" }
+
+" vim-go {
+    nnoremap <F8> :GoRun<CR>
+    " let g:go_fmt_options = {
+        " \ 'gofmt': '-r \'\"\\t\" -> \"    \"\' ',
+        " \}
 " }

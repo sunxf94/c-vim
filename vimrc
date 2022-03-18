@@ -39,6 +39,7 @@ endif
 
 " Reload/Edit the vimrc file quickly
 nnoremap <Leader>ev :vs $MYVIMRC<CR>
+nnoremap <Leader>eg :vs $MYVIMRC.plugins<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 
 " 设置 vimrc 修改保存后立刻生效，不用在重新打开
@@ -129,18 +130,19 @@ set laststatus=2
 " 设置 foldlevel = 99 保证超过99以上的代码才会被折叠 详见 :h set 搜索foldlevel
 set nofoldenable
 " set foldmethod=manual
-" set foldlevel=99
-"" 折叠快捷键
-" 暂时不需要折叠 先注释
+" set foldmethod=indent
+" set foldlevel=30
+" " 折叠快捷键
+" let g:FoldMethod = 0
 " map <Leader>zz :call ToggleFold()<CR>
 " fun! ToggleFold()
-    " if g:FoldMethod == 0
-        " exe "normal! zM"
-        " let g:FoldMethod = 1
-    " else
-        " exe "normal! zR"
-        " let g:FoldMethod = 0
-    " endif
+  " if g:FoldMethod == 0
+      " exe "normal! zM"
+      " let g:FoldMethod = 1
+  " else
+      " exe "normal! zR"
+      " let g:FoldMethod = 0
+  " endif
 " endfun
 
 " 语法高亮
@@ -248,6 +250,9 @@ inoremap <expr> <C-k>       pumvisible() ? "\<C-p>" : "\<Up>"
 " 上下快速翻屏
 nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
+
+" 快速查找一个词
+nnoremap <CR> <S-*>
 
 " 撤销
 nnoremap U <C-r>
