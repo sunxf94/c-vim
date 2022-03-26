@@ -109,6 +109,8 @@ if has_key(g:plugs, 'YouCompleteMe')
     " 关闭原型预览
     set completeopt=menu,menuone
     let g:ycm_add_preview_to_completeopt = 0
+    " 关闭悬停预览
+    let g:ycm_auto_hover = ''
     " 关闭诊断信息
     let g:ycm_show_diagnostics_ui = 0
     " 日志级别
@@ -117,7 +119,7 @@ if has_key(g:plugs, 'YouCompleteMe')
 
     " 跳转到定义处, 当前buffer打开
     let g:ycm_goto_buffer_command = 'same-buffer'
-    nnoremap gd :YcmCompleter GoToDeclaration<CR>
+    nnoremap gd :YcmCompleter GoToDeclaration<CR>zz
     nnoremap go <c-o>zz
 
     " 直接触发自动补全 insert模式下
@@ -328,7 +330,7 @@ endif
 
 " tagbar {
     nnoremap <F9> :TagbarToggle<CR>
-    let g:tagbar_autofocus = 0
+    let g:tagbar_autofocus = 1
     let g:tagbar_show_linenumbers = -1
     let g:tagbar_show_visibility = 0
     " let g:tagbar_autoshowtag = 1
@@ -373,6 +375,7 @@ endif
 
 " vim-go {
     nnoremap <F8> :GoRun<CR>
+    nnoremap <F7> :GoCallers<CR>
     " let g:go_fmt_options = {
         " \ 'gofmt': '-r \'\"\\t\" -> \"    \"\' ',
         " \}
