@@ -270,6 +270,9 @@ nnoremap <F3> :set list! list?<CR>
 " F4 换行开关
 nnoremap <F4> :set wrap! wrap?<CR>
 
+" F5 复制模式
+" nnoremap <F5> :call StartPasteMode()<CR>
+
 " F6 语法开关 关闭语法可以加快大文件展示速度
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
